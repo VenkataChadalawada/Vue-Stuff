@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Basics</title>
+    <style>
+        .red{
+            border: 2px solid red;
+        }
+        .green{
+            border: 2px solid green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vue Basics</h1>
+    <div id="app">
+        <h2>{{ count }}</h2>
+        <input v-model="greeting" />
+        <div v-if="count===1">
+            Green
+        </div>
+        <div v-else-if="count===2">
+            Red
+        </div>
+        <div v-else="count===2">
+            Orange
+        </div>
+        <p v-show="count===1"></p>
+        <p>{{email}}</p>
+        <!-- to add text with vue attribute-->
+        <p v-text="email"></p>
+        <!--to add html-->
+        <p v-html="email"></p>
+        <!-- two ways to conditionally add things eg-class here-->
+        <input v-model="email" :class="{red: email.length < 2}"/>
+        <input v-model="email" :class="[ email.length < 2 ? 'red' : 'green']"/>
+        <br/>
+        <button onclick="alert('signedup')" :disabled="email.length<2">submit</button>
+        <!-- vonce fixes for first time value if we edit it by different way it wont change-->
+        <p v-once>{{email}}</p>
+        <p>{{email}}</p>
+        <!-- Array Iteration-->
+        <ul>
+            <li v-for="cat in cats">
+                {{cat}}
+            </li>
+        </ul>
+        <!-- Object Iteration-->
+        <ul>
+            <li v-for="dog in dogs">
+                {{dog.name}}
+            </li>
+        </ul>
+        <!-- add an item dynamically using methods-->
+        <input v-model="newDog" v-on:keyup.enter="addDog"/>
+        <button @click="addDog" >+Add</button>
+        <!--you can chain on events in Vue eg v-on:click.prevent.stop ===> preventDefault stopPropogation-->
+        <!-- filters it wont change data but pipes into a filter-->
+        <ul>
+            <li v-for="dog in dogs">
+                {{ dog.name | capitalize}}
+            </li>
+        </ul>
+
+        <div>hi---{{ kittifyName }}</div>
+        <cricket-list hi="hello" :stars="stars"/>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app1.js"></script>
+</body>
+</html>
